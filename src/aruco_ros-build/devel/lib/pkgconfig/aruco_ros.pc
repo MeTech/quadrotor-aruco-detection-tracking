@@ -1,0 +1,8 @@
+prefix=/home/mete/Desktop/aruco_ws/src/aruco_ros-build/devel
+
+Name: aruco_ros
+Description: Description of aruco_ros
+Version: 0.2.0
+Cflags: -I/home/mete/Desktop/aruco_ws/src/aruco_ros-build/devel/include -I/home/mete/Desktop/aruco_ws/src/aruco_ros/include
+Libs: -L/home/mete/Desktop/aruco_ws/src/aruco_ros-build/devel/lib -laruco
+Requires: 

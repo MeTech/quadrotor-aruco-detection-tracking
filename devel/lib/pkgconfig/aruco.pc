@@ -1,0 +1,8 @@
+prefix=/home/mete/Desktop/aruco_ws/devel
+
+Name: aruco
+Description: Description of aruco
+Version: 0.2.0
+Cflags: -I/home/mete/Desktop/aruco_ws/src/aruco/include
+Libs: -L/home/mete/Desktop/aruco_ws/devel/lib -laruco
+Requires: 

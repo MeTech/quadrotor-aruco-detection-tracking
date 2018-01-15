@@ -1,0 +1,8 @@
+prefix=/home/mete/Desktop/aruco_ws/devel
+
+Name: aruco_kinetic
+Description: Description of aruco_kinetic
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/mete/Desktop/aruco_ws/devel/lib 
+Requires: 

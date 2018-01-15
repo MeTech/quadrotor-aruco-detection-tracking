@@ -1,0 +1,2 @@
+aruco:aruco_kinetic:aruco_msgs:aruco_ros
+-DCATKIN_DEVEL_PREFIX=/home/mete/Desktop/aruco_ws/devel -DCMAKE_INSTALL_PREFIX=/home/mete/Desktop/aruco_ws/install -G Unix Makefiles
