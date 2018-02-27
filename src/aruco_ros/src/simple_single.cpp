@@ -47,10 +47,12 @@ or implied, of Rafael Muñoz Salinas.
 #include <tf/transform_listener.h>
 #include <visualization_msgs/Marker.h>
 #include <geometry_msgs/Twist.h>
+#include <geometry_msgs/Vector3.h>
 #include "sensor_msgs/Range.h"
 #include "std_msgs/Empty.h"
 #include <dynamic_reconfigure/server.h>
 #include <aruco_ros/ArucoThresholdConfig.h>
+#include <ardrone_autonomy/Navdata.h>
 using namespace aruco;
 
 class ArucoSimple
@@ -64,6 +66,7 @@ private:
   vector<Marker> markers;
   ros::Subscriber cam_info_sub;
   ros::Subscriber sonar_height_sub;
+  ros::Subscriber navdata_sub;
   bool cam_info_received;
   image_transport::Publisher image_pub;
   image_transport::Publisher debug_pub;
@@ -89,13 +92,14 @@ private:
   float sonar_height;
   float sonar_height_error;
   float xy_error;
-
+  float err_eps;
   // state and land
   bool land_begin;
   std::string state;
   
 
   geometry_msgs::Twist cmdVelMsg;
+  geometry_msgs::Vector3 navdataMsg;
   std_msgs::Empty emptyMsg;
   ros::NodeHandle nh;
   image_transport::ImageTransport it;
@@ -114,7 +118,7 @@ public:
     //states
     land_begin=false;
     state="search";
-
+    err_eps=0.005;
     count=0;
     sonar_height_error=100;
     xy_error=100;
@@ -144,8 +148,7 @@ public:
     image_sub = it.subscribe("/image", 1, &ArucoSimple::image_callback, this);
     cam_info_sub = nh.subscribe("/camera_info", 1, &ArucoSimple::cam_info_callback, this);
     sonar_height_sub = nh.subscribe("/sonar_height", 10, &ArucoSimple::sonar_height_callback, this);
-
-
+    navdata_sub = nh.subscribe("/ardrone/navdata", 10, &ArucoSimple::navdata_callback, this);
 
     image_pub = it.advertise("result", 1);
     debug_pub = it.advertise("debug", 1);
@@ -211,24 +214,35 @@ public:
       ardrone_cmd_vel_pub.publish(cmdVelMsg);
   }
   void marker_follower(geometry_msgs::Vector3Stamped positionMsg){
-            //PID controller
+            //PD controller
             //works for simulation
-            float Kp=0.8;
+            float Kp=0.2;
+            float Kd=0.0005;
             xy_error= positionMsg.vector.x*positionMsg.vector.x + positionMsg.vector.y*positionMsg.vector.y;
-
-            set_cmd_vel(-Kp*(-positionMsg.vector.x), -Kp*(-positionMsg.vector.y), 0, 0, 0, 0);
+//            set_cmd_vel(-Kp*(-positionMsg.vector.x) + Kd*(-navdataMsg.x), -Kp*(-positionMsg.vector.y) + Kd*(-navdataMsg.y), 0, 0, 0, 0);
             
             //works for real 
             // realde dikey x ekseni ve yukarisi negatif oluyor nedense. Kordinat farkli yani
-            /*
-            set_cmd_vel(-Kp*(-positionMsg.vector.x), -Kp*(-positionMsg.vector.x), 0, 0, 0, 0);
+//            ROS_INFO("Apply x: %f", Kp*(-positionMsg.vector.x) );
+//            ROS_INFO("Apply y: %f", Kp*(-positionMsg.vector.y) );
+            
+            /* // below a certain vveloicty real quadrotor begin to make wierd movements
+            float x_vel = Kp*(-positionMsg.vector.x);
+            float y_vel = Kp*(-positionMsg.vector.y);
+
+            if(x_vel<0.005 && x_vel>-0.005 )
+              x_vel=0;
+            if(y_vel<0.005 && y_vel>-0.005 )
+              y_vel=0;              
+            set_cmd_vel(x_vel, y_vel, 0, 0, 0, 0);
             */
+            set_cmd_vel(Kp*(-positionMsg.vector.x), Kp*(-positionMsg.vector.y), 0, 0, 0, 0);
+            //ROS_INFO("%f",positionMsg.vector.x);
   }
 
   
   //Reads the platform GPS value
   geometry_msgs::PoseStamped marker_position_callback(){
-
     geometry_msgs::PoseStamped marker_GPS_position;
     marker_GPS_position.pose.position.x=2;
     marker_GPS_position.pose.position.y=2;
@@ -245,12 +259,19 @@ public:
     sonar_height=msg->range;
   }
 
+  void navdata_callback(ardrone_autonomy::Navdata msg){
+    navdataMsg.x=msg.vx;
+    navdataMsg.y=msg.vy;
+    navdataMsg.z=msg.vz;
+  }
+
   void heigh_contoller(float desired_heigt){
     //PD controller
-      float Kp=1.0;
+      float Kp=10.0;
+      float Kd=0.001;
       sonar_height_error=desired_heigt- sonar_height;
       //ROS_INFO("%f",sonar_height_error);
-      set_cmd_vel(0, 0, Kp*(sonar_height_error), 0, 0, 0);
+      set_cmd_vel(0, 0, Kp*(sonar_height_error) + Kd*(-navdataMsg.z), 0, 0, 0);
   }
 
   void image_callback(const sensor_msgs::ImageConstPtr& msg)
@@ -260,6 +281,7 @@ public:
     {
       ros::Time curr_stamp(ros::Time::now());
       cv_bridge::CvImagePtr cv_ptr;
+      //ROS_INFO("x %f, y %f, z %f", navdataMsg.x, navdataMsg.y, navdataMsg.z);
       try
       {
         cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::RGB8);
@@ -270,12 +292,8 @@ public:
         //Ok, let's detect
         mDetector.detect(inImage, markers, camParam, marker_size, false);
         //for each marker, draw info and its boundaries in the image
-        
-        float xy_error_treshold=0.01;
-        //determine the state
-        //ROS_INFO("%s", land_begin ? "true" : "false");
 
-        //if the marker is lost
+/*        //if the marker is lost
         if(markers.size()==0 && !(land_begin))
         {
           state="search";
@@ -286,12 +304,12 @@ public:
         {
           //ROS_INFO("SEARCH");
           //adjust the height
-          if(sonar_height_error>0.05) //mutlak deger yapmak lazım
+          if(sonar_height_error>err_eps) //mutlak deger yapmak lazım
           {
             heigh_contoller(2.0);
           }
           //if not found search, if found change the state
-          else if(sonar_height_error<0.05)
+          else if(sonar_height_error<err_eps)
           {
             if(markers.size()==1)
             {
@@ -307,6 +325,7 @@ public:
           else
           { //set vel diye bir function yazabilirim!
               set_cmd_vel(0, 0, 0, 0, 0, 0);
+              //ROS_INFO("Reached!!");
           }
 
 
@@ -314,7 +333,13 @@ public:
         else if(state=="follow")
         {
           //ROS_INFO("FOLLOW");
-          
+*/        
+
+/*
+          if(markers.size()==0){
+            set_cmd_vel(0,0,0,0,0,0);
+          }
+*/          
           for(size_t i=0; i<markers.size(); ++i)
           {
             // only publishing the selected marker
@@ -356,16 +381,14 @@ public:
               positionMsg.header = transformMsg.header;
               positionMsg.vector = transformMsg.transform.translation;
               position_pub.publish(positionMsg);
-//              if(!land_begin)
-//                ROS_INFO("mete");
+/*
               //tracking control
               if(xy_error < xy_error_treshold){
                 state="land";
-                //ROS_INFO("mettto");
                 land_begin=true;
                 break;
               }
-              marker_follower(positionMsg);
+*/              marker_follower(positionMsg);
 
   
               geometry_msgs::PointStamped pixelMsg;
@@ -396,12 +419,12 @@ public:
             // but drawing all the detected markers
             markers[i].draw(inImage,cv::Scalar(0,0,255),2);
           }
-        }
+/*        }
         else if(state=="land")
         {
           //ROS_INFO("LAND");          
           heigh_contoller(0.8);
-          if(sonar_height_error<0.05)
+          if(sonar_height_error<err_eps)
           {
               //set_cmd_vel(0,0,0,0,0,0);
               land_pub.publish(emptyMsg);
@@ -413,7 +436,7 @@ public:
           set_cmd_vel(0,0,0,0,0,0);
         }     
         
-
+*/
         //draw a 3d cube in each marker if there is 3d info
         if(camParam.isValid() && marker_size!=-1)
         {

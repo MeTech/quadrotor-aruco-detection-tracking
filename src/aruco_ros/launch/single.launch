@@ -25,5 +25,8 @@
     <node pkg="rosservice" type="rosservice" name="global_loc" args="call /ardrone/setcamchannel 'channel: 1'  --wait"/>
     <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen" args="--wait image:=/aruco_single/result"/>
 
+<!--    <node pkg="rostopic" type="rostopic" name="takeoff" args="pub /ardrone/takeoff std_msgs/Empty '{}' " output="screen"/>
+    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop" output="screen"/> -->
+
 </launch>
 

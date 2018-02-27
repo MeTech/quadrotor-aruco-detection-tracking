@@ -122,6 +122,7 @@ single_EXTERNAL_OBJECTS =
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /opt/ros/kinetic/lib/libopencv_imgcodecs3.so.3.3.1
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /opt/ros/kinetic/lib/libdynamic_reconfigure_config_init_mutex.so
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /opt/ros/kinetic/lib/libimage_transport.so
+/home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /opt/ros/kinetic/lib/libclass_loader.so
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /usr/lib/libPocoFoundation.so
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /usr/lib/x86_64-linux-gnu/libdl.so
@@ -135,8 +136,8 @@ single_EXTERNAL_OBJECTS =
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /opt/ros/kinetic/lib/libactionlib.so
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /opt/ros/kinetic/lib/libmessage_filters.so
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /opt/ros/kinetic/lib/libroscpp.so
-/home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /usr/lib/x86_64-linux-gnu/libboost_signals.so
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+/home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /usr/lib/x86_64-linux-gnu/libboost_signals.so
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /opt/ros/kinetic/lib/libxmlrpcpp.so
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /opt/ros/kinetic/lib/libtf2.so
 /home/mete/Desktop/aruco_ws/devel/lib/aruco_ros/single: /opt/ros/kinetic/lib/librosconsole.so

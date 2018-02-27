@@ -66,10 +66,22 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -98,18 +110,6 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
@@ -164,21 +164,6 @@ preinstall/fast:
 depend:
 	cd /home/mete/Desktop/aruco_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-# Convenience name for target.
-aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/rule:
-	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f CMakeFiles/Makefile2 aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/rule
-.PHONY : aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-tf_generate_messages_nodejs: aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/rule
-
-.PHONY : tf_generate_messages_nodejs
-
-# fast build rule for target.
-tf_generate_messages_nodejs/fast:
-	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/build.make aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/build
-.PHONY : tf_generate_messages_nodejs/fast
 
 # Convenience name for target.
 aruco_ros/CMakeFiles/tf_generate_messages_lisp.dir/rule:
@@ -765,6 +750,36 @@ single/fast:
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single.dir/build.make aruco_ros/CMakeFiles/single.dir/build
 .PHONY : single/fast
 
+# Convenience name for target.
+aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/rule:
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f CMakeFiles/Makefile2 aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/rule
+.PHONY : aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+tf_generate_messages_nodejs: aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/rule
+
+.PHONY : tf_generate_messages_nodejs
+
+# fast build rule for target.
+tf_generate_messages_nodejs/fast:
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/build.make aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/build
+.PHONY : tf_generate_messages_nodejs/fast
+
+# Convenience name for target.
+aruco_ros/CMakeFiles/single_simulation.dir/rule:
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f CMakeFiles/Makefile2 aruco_ros/CMakeFiles/single_simulation.dir/rule
+.PHONY : aruco_ros/CMakeFiles/single_simulation.dir/rule
+
+# Convenience name for target.
+single_simulation: aruco_ros/CMakeFiles/single_simulation.dir/rule
+
+.PHONY : single_simulation
+
+# fast build rule for target.
+single_simulation/fast:
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/build
+.PHONY : single_simulation/fast
+
 src/aruco_ros_utils.o: src/aruco_ros_utils.cpp.o
 
 .PHONY : src/aruco_ros_utils.o
@@ -774,6 +789,7 @@ src/aruco_ros_utils.cpp.o:
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/marker_publisher.dir/build.make aruco_ros/CMakeFiles/marker_publisher.dir/src/aruco_ros_utils.cpp.o
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/double.dir/build.make aruco_ros/CMakeFiles/double.dir/src/aruco_ros_utils.cpp.o
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single.dir/build.make aruco_ros/CMakeFiles/single.dir/src/aruco_ros_utils.cpp.o
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/aruco_ros_utils.cpp.o
 .PHONY : src/aruco_ros_utils.cpp.o
 
 src/aruco_ros_utils.i: src/aruco_ros_utils.cpp.i
@@ -785,6 +801,7 @@ src/aruco_ros_utils.cpp.i:
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/marker_publisher.dir/build.make aruco_ros/CMakeFiles/marker_publisher.dir/src/aruco_ros_utils.cpp.i
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/double.dir/build.make aruco_ros/CMakeFiles/double.dir/src/aruco_ros_utils.cpp.i
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single.dir/build.make aruco_ros/CMakeFiles/single.dir/src/aruco_ros_utils.cpp.i
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/aruco_ros_utils.cpp.i
 .PHONY : src/aruco_ros_utils.cpp.i
 
 src/aruco_ros_utils.s: src/aruco_ros_utils.cpp.s
@@ -796,7 +813,35 @@ src/aruco_ros_utils.cpp.s:
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/marker_publisher.dir/build.make aruco_ros/CMakeFiles/marker_publisher.dir/src/aruco_ros_utils.cpp.s
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/double.dir/build.make aruco_ros/CMakeFiles/double.dir/src/aruco_ros_utils.cpp.s
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single.dir/build.make aruco_ros/CMakeFiles/single.dir/src/aruco_ros_utils.cpp.s
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/aruco_ros_utils.cpp.s
 .PHONY : src/aruco_ros_utils.cpp.s
+
+src/ekf.o: src/ekf.cpp.o
+
+.PHONY : src/ekf.o
+
+# target to build an object file
+src/ekf.cpp.o:
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/ekf.cpp.o
+.PHONY : src/ekf.cpp.o
+
+src/ekf.i: src/ekf.cpp.i
+
+.PHONY : src/ekf.i
+
+# target to preprocess a source file
+src/ekf.cpp.i:
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/ekf.cpp.i
+.PHONY : src/ekf.cpp.i
+
+src/ekf.s: src/ekf.cpp.s
+
+.PHONY : src/ekf.s
+
+# target to generate assembly for a file
+src/ekf.cpp.s:
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/ekf.cpp.s
+.PHONY : src/ekf.cpp.s
 
 src/marker_publish.o: src/marker_publish.cpp.o
 
@@ -879,6 +924,33 @@ src/simple_single.cpp.s:
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single.dir/build.make aruco_ros/CMakeFiles/single.dir/src/simple_single.cpp.s
 .PHONY : src/simple_single.cpp.s
 
+src/simple_single_simulation.o: src/simple_single_simulation.cpp.o
+
+.PHONY : src/simple_single_simulation.o
+
+# target to build an object file
+src/simple_single_simulation.cpp.o:
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/simple_single_simulation.cpp.o
+.PHONY : src/simple_single_simulation.cpp.o
+
+src/simple_single_simulation.i: src/simple_single_simulation.cpp.i
+
+.PHONY : src/simple_single_simulation.i
+
+# target to preprocess a source file
+src/simple_single_simulation.cpp.i:
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/simple_single_simulation.cpp.i
+.PHONY : src/simple_single_simulation.cpp.i
+
+src/simple_single_simulation.s: src/simple_single_simulation.cpp.s
+
+.PHONY : src/simple_single_simulation.s
+
+# target to generate assembly for a file
+src/simple_single_simulation.cpp.s:
+	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/simple_single_simulation.cpp.s
+.PHONY : src/simple_single_simulation.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -886,7 +958,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... list_install_components"
-	@echo "... tf_generate_messages_nodejs"
+	@echo "... install"
 	@echo "... tf_generate_messages_lisp"
 	@echo "... dynamic_reconfigure_gencfg"
 	@echo "... tf2_msgs_generate_messages_nodejs"
@@ -923,18 +995,22 @@ help:
 	@echo "... tf2_msgs_generate_messages_eus"
 	@echo "... actionlib_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_py"
-	@echo "... install"
 	@echo "... visualization_msgs_generate_messages_cpp"
 	@echo "... dynamic_reconfigure_generate_messages_py"
 	@echo "... double"
 	@echo "... visualization_msgs_generate_messages_py"
 	@echo "... aruco_ros_gencfg"
 	@echo "... single"
+	@echo "... tf_generate_messages_nodejs"
+	@echo "... single_simulation"
 	@echo "... install/local"
 	@echo "... test"
 	@echo "... src/aruco_ros_utils.o"
 	@echo "... src/aruco_ros_utils.i"
 	@echo "... src/aruco_ros_utils.s"
+	@echo "... src/ekf.o"
+	@echo "... src/ekf.i"
+	@echo "... src/ekf.s"
 	@echo "... src/marker_publish.o"
 	@echo "... src/marker_publish.i"
 	@echo "... src/marker_publish.s"
@@ -944,6 +1020,9 @@ help:
 	@echo "... src/simple_single.o"
 	@echo "... src/simple_single.i"
 	@echo "... src/simple_single.s"
+	@echo "... src/simple_single_simulation.o"
+	@echo "... src/simple_single_simulation.i"
+	@echo "... src/simple_single_simulation.s"
 .PHONY : help
 
 

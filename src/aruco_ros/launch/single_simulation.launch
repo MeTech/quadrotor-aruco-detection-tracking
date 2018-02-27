@@ -8,7 +8,7 @@
     <arg name="corner_refinement" default="LINES" /> <!-- NONE, HARRIS, LINES, SUBPIX -->
 
 
-    <node pkg="aruco_ros" type="single" name="aruco_single" output="screen">
+    <node pkg="aruco_ros" type="single_simulation" name="aruco_single" output="screen">
         <remap from="/camera_info" to="/ardrone/bottom/camera_info" />   <!-- /ardrone/bottom/camera_info -->
         <remap from="/image" to="/ardrone/bottom/image_raw" />   <!-- /ardrone/bottom/image_raw -->
         <param name="image_is_rectified" value="True"/>

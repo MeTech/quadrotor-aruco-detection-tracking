@@ -70,8 +70,8 @@ install/fast: preinstall/fast
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -725,19 +725,6 @@ rosgraph_msgs_generate_messages_py/fast:
 .PHONY : rosgraph_msgs_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named tf_generate_messages_nodejs
-
-# Build rule for target.
-tf_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 tf_generate_messages_nodejs
-.PHONY : tf_generate_messages_nodejs
-
-# fast build rule for target.
-tf_generate_messages_nodejs/fast:
-	$(MAKE) -f aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/build.make aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/build
-.PHONY : tf_generate_messages_nodejs/fast
-
-#=============================================================================
 # Target rules for targets named tf_generate_messages_lisp
 
 # Build rule for target.
@@ -1244,6 +1231,32 @@ single/fast:
 	$(MAKE) -f aruco_ros/CMakeFiles/single.dir/build.make aruco_ros/CMakeFiles/single.dir/build
 .PHONY : single/fast
 
+#=============================================================================
+# Target rules for targets named tf_generate_messages_nodejs
+
+# Build rule for target.
+tf_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tf_generate_messages_nodejs
+.PHONY : tf_generate_messages_nodejs
+
+# fast build rule for target.
+tf_generate_messages_nodejs/fast:
+	$(MAKE) -f aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/build.make aruco_ros/CMakeFiles/tf_generate_messages_nodejs.dir/build
+.PHONY : tf_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named single_simulation
+
+# Build rule for target.
+single_simulation: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 single_simulation
+.PHONY : single_simulation
+
+# fast build rule for target.
+single_simulation/fast:
+	$(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/build
+.PHONY : single_simulation/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1300,7 +1313,6 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_py"
-	@echo "... tf_generate_messages_nodejs"
 	@echo "... tf_generate_messages_lisp"
 	@echo "... dynamic_reconfigure_gencfg"
 	@echo "... tf2_msgs_generate_messages_nodejs"
@@ -1340,6 +1352,8 @@ help:
 	@echo "... visualization_msgs_generate_messages_py"
 	@echo "... aruco_ros_gencfg"
 	@echo "... single"
+	@echo "... tf_generate_messages_nodejs"
+	@echo "... single_simulation"
 .PHONY : help
 
 

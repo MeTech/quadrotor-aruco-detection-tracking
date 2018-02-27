@@ -10,4 +10,7 @@ set(aruco_ros_EXEC_DEPENDS "cv_bridge" "dynamic_reconfigure" "geometry_msgs" "im
 set(aruco_ros_RUN_DEPENDS "cv_bridge" "dynamic_reconfigure" "geometry_msgs" "image_transport" "roscpp" "tf" "aruco" "aruco_msgs" "visualization_msgs")
 set(aruco_ros_TEST_DEPENDS )
 set(aruco_ros_DOC_DEPENDS )
+set(aruco_ros_URL_WEBSITE "http://www.uco.es/investiga/grupos/ava/node/26")
+set(aruco_ros_URL_BUGTRACKER "")
+set(aruco_ros_URL_REPOSITORY "")
 set(aruco_ros_DEPRECATED "")

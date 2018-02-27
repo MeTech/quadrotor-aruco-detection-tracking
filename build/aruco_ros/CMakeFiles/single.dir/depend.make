@@ -194,6 +194,7 @@ aruco_ros/CMakeFiles/single.dir/src/simple_single.cpp.o: /home/mete/Desktop/aruc
 aruco_ros/CMakeFiles/single.dir/src/simple_single.cpp.o: /home/mete/Desktop/aruco_ws/src/aruco/include/aruco/markerdetector.h
 aruco_ros/CMakeFiles/single.dir/src/simple_single.cpp.o: /home/mete/Desktop/aruco_ws/src/aruco_ros/include/aruco_ros/aruco_ros_utils.h
 aruco_ros/CMakeFiles/single.dir/src/simple_single.cpp.o: /home/mete/Desktop/aruco_ws/src/aruco_ros/src/simple_single.cpp
+aruco_ros/CMakeFiles/single.dir/src/simple_single.cpp.o: /opt/ros/kinetic/include/ardrone_autonomy/Navdata.h
 aruco_ros/CMakeFiles/single.dir/src/simple_single.cpp.o: /opt/ros/kinetic/include/cv_bridge/cv_bridge.h
 aruco_ros/CMakeFiles/single.dir/src/simple_single.cpp.o: /opt/ros/kinetic/include/dynamic_reconfigure/BoolParameter.h
 aruco_ros/CMakeFiles/single.dir/src/simple_single.cpp.o: /opt/ros/kinetic/include/dynamic_reconfigure/Config.h
