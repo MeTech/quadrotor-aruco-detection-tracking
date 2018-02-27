@@ -816,33 +816,6 @@ src/aruco_ros_utils.cpp.s:
 	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/aruco_ros_utils.cpp.s
 .PHONY : src/aruco_ros_utils.cpp.s
 
-src/ekf.o: src/ekf.cpp.o
-
-.PHONY : src/ekf.o
-
-# target to build an object file
-src/ekf.cpp.o:
-	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/ekf.cpp.o
-.PHONY : src/ekf.cpp.o
-
-src/ekf.i: src/ekf.cpp.i
-
-.PHONY : src/ekf.i
-
-# target to preprocess a source file
-src/ekf.cpp.i:
-	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/ekf.cpp.i
-.PHONY : src/ekf.cpp.i
-
-src/ekf.s: src/ekf.cpp.s
-
-.PHONY : src/ekf.s
-
-# target to generate assembly for a file
-src/ekf.cpp.s:
-	cd /home/mete/Desktop/aruco_ws/build && $(MAKE) -f aruco_ros/CMakeFiles/single_simulation.dir/build.make aruco_ros/CMakeFiles/single_simulation.dir/src/ekf.cpp.s
-.PHONY : src/ekf.cpp.s
-
 src/marker_publish.o: src/marker_publish.cpp.o
 
 .PHONY : src/marker_publish.o
@@ -1008,9 +981,6 @@ help:
 	@echo "... src/aruco_ros_utils.o"
 	@echo "... src/aruco_ros_utils.i"
 	@echo "... src/aruco_ros_utils.s"
-	@echo "... src/ekf.o"
-	@echo "... src/ekf.i"
-	@echo "... src/ekf.s"
 	@echo "... src/marker_publish.o"
 	@echo "... src/marker_publish.i"
 	@echo "... src/marker_publish.s"

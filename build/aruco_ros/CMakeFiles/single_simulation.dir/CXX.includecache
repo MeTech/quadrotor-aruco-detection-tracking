@@ -118,18 +118,6 @@ iostream
 tf/transform_datatypes.h
 -
 
-/home/mete/Desktop/aruco_ws/src/aruco_ros/src/ekf.cpp
-math.h
--
-ekf.h
-/home/mete/Desktop/aruco_ws/src/aruco_ros/src/ekf.h
-iostream
--
-
-/home/mete/Desktop/aruco_ws/src/aruco_ros/src/ekf.h
-Eigen/Dense
-/home/mete/Desktop/aruco_ws/src/aruco_ros/src/Eigen/Dense
-
 /home/mete/Desktop/aruco_ws/src/aruco_ros/src/simple_single_simulation.cpp
 iostream
 -

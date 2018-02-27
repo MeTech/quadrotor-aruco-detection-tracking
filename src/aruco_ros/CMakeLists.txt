@@ -35,7 +35,7 @@ target_link_libraries(single ${catkin_LIBRARIES})
 
 add_executable(single_simulation src/simple_single_simulation.cpp
                       src/aruco_ros_utils.cpp
-                      src/ekf.cpp)
+                      )
 add_dependencies(single_simulation ${PROJECT_NAME}_gencfg)
 target_link_libraries(single_simulation ${catkin_LIBRARIES})
 
